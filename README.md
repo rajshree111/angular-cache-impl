@@ -10,7 +10,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Explanation
 
-
+Copy the http-interceptors and services folder to your app. remove book-service.ts from services as you have to use your own service. Change CACHABLE_URL from caching-inteceptor.ts accordingly. there is no need of logging-interceptor.ts as well if logging of http request is not required.
 
 ## Build
 
