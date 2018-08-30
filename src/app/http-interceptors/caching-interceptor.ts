@@ -16,17 +16,20 @@ export class CachingInterceptor implements HttpInterceptor {
         }
         const cachedResponse = this.cache.get(req);
         if (cachedResponse !== null) {
+          console.log('just sending the cached response observable to the http request from INTERCEPT....of CachingInterceptor');
            return of(cachedResponse);
         }
         return next.handle(req).pipe(
             tap(event => {
+              console.log('we are here for side effect of a http req.....');
               if (event instanceof HttpResponse) {
+                console.log('The response came from http req....., heading to to cache-map-service to put it into cacheMap of it');
                 this.cache.put(req, event);
               }
             })
         );
     }
     private isRequestCachable(req: HttpRequest<any>) {
-        return (req.method === 'GET') && (req.url.indexOf(CACHABLE_URL) > -1);
+        return (req.method === 'GET') && (req.url.indexOf(CACHABLE_URL) > -1);  //chane logic here to be cachable for our request for --- no.....
     }
 }
